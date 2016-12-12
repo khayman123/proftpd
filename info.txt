@@ -1,2 +1,4 @@
+install proftpd proftpd-mod-ldap proftpd-mod-sql mutt 
+
 for ldap uncomment in modules.conf:
 LoadModule mod_ldap.c
