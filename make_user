@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo -n "Podaj nazwe uzytkownika: "
+read user
+adduser $user -shell /bin/false
+plik="$(ls -la /home/$user/)"
+for pliki in $plik ; do rm -f /home/$user/$pliki ; done
+rm -f /home/$user/.bashrc
+rm -f /home/$user/.bash_logout
+rm -f /home/$user/.profile
+echo -n "Podaj email uzytkownika na ktory zostana wyslane do logowania na serwer ftp: "
+read email
+echo -n "Podaj haslo usera: "
+read haslo
+echo "Ta wiadomosc zostala wygenerowana automatycznie. Zostalo przyznane ci konto na serwerze FTP UCK. Adres serwera : serwer.domena.local , port: 10101, login: $user , haslo: $haslo . Szczegoly polaczenia: Protokol: FTP, Szyfrowanie: Wymaga bezposredni FTP przez TLS, Typ logowania: Pytaj o haslo. Zaleca sie stosowanie klienta Filezilla FTP Client." > /etc/proftpd/message_ftp
+
+echo|mutt -s 'Dostep do serwera FTP UCK' -i /etc/proftpd/message_ftp $email
+echo "Dane do konta zostaly wyslane"
+echo "" > /etc/proftpd/message_ftp
+echo "$user $email" >> /etc/proftpd/list_of_users
