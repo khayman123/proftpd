@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo -n "Podaj nazwe uzytkownika: "
+read user
+#Set port for ftp
+port=999
+echo -n "Podaj email uzytkownika na ktory zostana wyslane do logowania na serwer ftp: "
+read email
+echo -n "Podaj haslo usera: "
+read haslo
+echo "Ta wiadomosc zostala wygenerowana automatycznie. Zostalo przyznane ci konto na serwerze FTP . Adres serwera : `hostname -f` , port: $port, login: $user , haslo: $haslo . Szczegoly polaczenia: Protokol: FTP, Szyfrowanie: Wymaga bezposredni FTP przez TLS, Typ logowania: Normalne. Zaleca sie stosowanie klienta Filezilla FTP Client." > /etc/proftpd/message_ftp
+echo|mutt -s 'Dostep do serwera FTP ' -i /etc/proftpd/message_ftp $email
+echo "Dane do konta zostaly wyslane"
+echo "" > /etc/proftpd/message_ftp
