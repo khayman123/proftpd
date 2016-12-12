@@ -1,0 +1,2 @@
+for ldap uncomment in modules.conf:
+LoadModule mod_ldap.c
